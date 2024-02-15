@@ -1,6 +1,8 @@
 package io.github.coffee330501.controller;
 
 import com.mybatisflex.core.paginate.Page;
+import com.mybatisflex.core.query.QueryWrapper;
+import io.github.coffee330501.enums.TodoStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,6 +38,7 @@ public class TodoListController {
      */
     @PostMapping("save")
     public boolean save(@RequestBody TodoList todoList) {
+        todoList.setStatus(TodoStatus.Pending.name());
         return todoListService.save(todoList);
     }
 
@@ -58,7 +61,7 @@ public class TodoListController {
      */
     @PutMapping("update")
     public boolean update(@RequestBody TodoList todoList) {
-        return todoListService.updateById(todoList);
+            return todoListService.updateById(todoList);
     }
 
     /**
@@ -68,7 +71,17 @@ public class TodoListController {
      */
     @GetMapping("list")
     public List<TodoList> list() {
-        return todoListService.list();
+        return todoListService.list(new QueryWrapper().orderBy("create_time desc"));
+    }
+
+    @GetMapping("list/pending")
+    public List<TodoList> listPending() {
+        return todoListService.listPending();
+    }
+
+    @GetMapping("list/closed")
+    public List<TodoList> listClosed() {
+        return todoListService.listClosed();
     }
 
     /**
