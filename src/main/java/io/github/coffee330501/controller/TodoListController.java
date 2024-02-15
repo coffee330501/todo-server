@@ -2,7 +2,9 @@ package io.github.coffee330501.controller;
 
 import com.mybatisflex.core.paginate.Page;
 import com.mybatisflex.core.query.QueryWrapper;
+import io.github.coffee330501.base.R;
 import io.github.coffee330501.enums.TodoStatus;
+import io.github.coffee330501.module.vo.GetClientSyncDataInput;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -106,4 +108,14 @@ public class TodoListController {
         return todoListService.page(page);
     }
 
+    @PutMapping("sync")
+    public R sync(@RequestBody List<TodoList> todoList){
+        todoListService.sync(todoList);
+        return R.ok();
+    }
+
+    @GetMapping("client_sync_data")
+    public R getClientSyncData(GetClientSyncDataInput input){
+        return R.ok(todoListService.getClientSyncData(input));
+    }
 }

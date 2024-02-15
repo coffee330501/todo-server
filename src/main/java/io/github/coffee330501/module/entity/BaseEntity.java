@@ -24,7 +24,4 @@ public class BaseEntity {
     @Column(isLogicDelete = true)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime deleteTime;
-
-    @Column(version = true)
-    private Long version;
 }
