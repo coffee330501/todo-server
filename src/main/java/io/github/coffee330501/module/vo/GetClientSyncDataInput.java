@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data
 public class GetClientSyncDataInput {
-    private String updateTime;
+    private String lastSyncTime;
 }

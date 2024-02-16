@@ -2,7 +2,6 @@ package io.github.coffee330501.service.impl;
 
 import cn.hutool.core.collection.CollStreamUtil;
 import cn.hutool.core.collection.CollUtil;
-import com.mybatisflex.core.query.QueryCondition;
 import com.mybatisflex.core.query.QueryWrapper;
 import com.mybatisflex.spring.service.impl.ServiceImpl;
 import io.github.coffee330501.module.entity.TodoList;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -57,7 +55,7 @@ public class TodoListServiceImpl extends ServiceImpl<TodoListMapper, TodoList> i
 
     @Override
     public List<TodoList> getClientSyncData(GetClientSyncDataInput input) {
-        return todoListMapper.selectListByQuery(new QueryWrapper().and(TODO_LIST.UPDATE_TIME.ge(input.getUpdateTime())).orderBy(TODO_LIST.CREATE_TIME, Boolean.FALSE));
+        return todoListMapper.selectListByQuery(new QueryWrapper().and(TODO_LIST.UPDATE_TIME.ge(input.getLastSyncTime())).orderBy(TODO_LIST.CREATE_TIME, Boolean.FALSE));
     }
 
     private void syncUpdate(List<TodoList> todoList) {
